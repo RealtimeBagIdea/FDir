@@ -2,7 +2,7 @@
 
 #-------------- How to use -----------------#
 # 1 move this file to /usr/bin
-# 2 sudo chmod 777 /usr/bin/rbin.sh
+# 2 sudo chmod 777 /usr/bin/fdir.sh
 # 3 create ~/.fdirrc (touch ~/.fdirrc)
 # 4 add source ~/.fdirrc to your bashrc
 # 5 re-open terminal
