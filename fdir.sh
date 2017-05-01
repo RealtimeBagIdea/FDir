@@ -36,10 +36,10 @@ Save()
         if [ "$IS_EXISTS" == "" ]; then
             CORRECT_PATH=$(echo $PWD | sed "s/\s/\\\ /g")
             echo "alias fd_$1=\"cd $CORRECT_PATH\"" >> $CONFIG_FILE
-            echo "Add $1 to $PWD"
+            echo "Add '$1' to $PWD"
             echo ""
         else
-            echo "Key $1 is exist"
+            echo "Key '$1' is exist"
             echo ""
         fi
     else
@@ -50,9 +50,16 @@ Save()
 Remove()
 {
     if [ "$1" != "" ]; then
-        sed -i "/alias fd_$1=.*$/d" $CONFIG_FILE
-        echo "Remove $1 successfully"
-        echo ""
+        #Check if exists
+        IS_EXISTS=$(cat $CONFIG_FILE | grep "alias fd_$1=")
+        if [ "$IS_EXISTS" == "" ]; then
+            echo "Key '$1' not found"
+            echo ""
+        else
+            sed -i "/alias fd_$1=.*$/d" $CONFIG_FILE
+            echo "Remove '$1' successfully"
+            echo ""
+        fi
     else
         ShowError
     fi
