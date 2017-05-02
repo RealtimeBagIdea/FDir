@@ -9,6 +9,11 @@
 * [Optional] add ``` alias fdir="fdir.sh" ``` to your bashrc or something of your shell. For use fdir instead of fdir.sh
 * re-open terminal
 
+**User Config**
+* You can edit something by open fdir.sh file and move to 'USER CONFIG'
+  - ``` PREFIX_ ``` = prefix of key. default is 'fe-'
+  - ``` FILENAME_ ``` = data file name. default is '.fdirrc'
+
 **Usage**
 If you add ```alias fdir="fdir.sh"``` to your .bashrc you can use ```fdir``` instead of ```fdir.sh```. If not, you must use ```fdir.sh``` instead
 
