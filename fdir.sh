@@ -16,7 +16,7 @@
 VERSION="1.0"
 
 #Variable
-CURRENTUSER=$USER
+CURRENTUSER=$(whoami)
 
 if [ "$CURRENTUSER" == "root" ]; then
     CONFIG_FILE="/$CURRENTUSER/.fdirrc"
