@@ -16,7 +16,13 @@
 VERSION="1.0"
 
 #Variable
-CONFIG_FILE="/home/$USER/.fdirrc"
+CURRENTUSER=$USER
+
+if [ "$CURRENTUSER" == "root" ]; then
+    CONFIG_FILE="/$CURRENTUSER/.fdirrc"
+else
+    CONFIG_FILE="/home/$CURRENTUSER/.fdirrc"
+fi
 
 #==================== METHOD =======================#
 ShowError() 
