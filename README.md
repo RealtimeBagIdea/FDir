@@ -3,7 +3,7 @@
 
 **Installation**
 * move ```fdir.sh``` to ```/usr/bin```
-* run command ``` sudo chmod 777 /usr/bin/fdir.sh ``` or specific user that you want to wrx
+* run command ``` sudo chmod 777 /usr/bin/fdir.sh ``` or specific user that you want to wrx such as (775 or 755)
 * run command ``` touch ~/.fdirrc ```
 * add ``` source ~/.fdirrc ``` to your bashrc or something of your shell
 * [Optional] add ``` alias fdir="fdir.sh" ``` to your bashrc or something of your shell. For use fdir instead of fdir.sh
