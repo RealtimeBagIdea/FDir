@@ -15,11 +15,8 @@
 
 VERSION="1.0"
 
-#Get Logined User
-CURRENTUSER=$(who | cut -d' ' -f1)
-
 #Variable
-CONFIG_FILE="/home/$CURRENTUSER/.fdirrc"
+CONFIG_FILE="/home/$USER/.fdirrc"
 
 #==================== METHOD =======================#
 ShowError() 
@@ -102,6 +99,7 @@ Help()
 if [ ! -f $CONFIG_FILE ]; then
     touch $CONFIG_FILE
 fi
+
 if [ "$1" == "-s" ]; then
     Save $2
 elif [ "$1" == "-r" ]; then
