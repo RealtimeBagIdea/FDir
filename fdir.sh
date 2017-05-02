@@ -21,6 +21,9 @@
 
 PREFIX_="fd-"
 FILENAME_=".fdirrc"
+SAVE_FLAG_="-s"
+REMOVE_FLAG_="-r"
+LIST_FLAG_="-l"
 
 #-------------------------------- END CONFIG ---------------------------------------------------------------#
 
@@ -116,11 +119,11 @@ if [ ! -f $CONFIG_FILE ]; then
     echo "" > $CONFIG_FILE
 fi
 
-if [ "$1" == "-s" ]; then
+if [ "$1" == "$SAVE_FLAG_" ]; then
     Save $2
-elif [ "$1" == "-r" ]; then
+elif [ "$1" == "$REMOVE_FLAG_" ]; then
     Remove $2
-elif [ "$1" == "-l" ]; then
+elif [ "$1" == "$LIST_FLAG_" ]; then
     List   
 elif [ "$1" == "-h" ]; then
     Help
@@ -130,4 +133,4 @@ elif [ "$1" == "-v" ]; then
 else
     ShowError
 fi
-i
+
