@@ -1,6 +1,10 @@
 **Favorite Directory**
 <i>Use for create Shortcut to change Terminal's working directory to your favorite directory</i>
 
+| Version | Update Detail                                                                         |
+| :------:|:--------------------------------------------------------------------------------------|
+|   1.1   | - Add User Config                                                                     |
+
 **Installation**
 * move ```fdir.sh``` to ```/usr/bin```
 * run command ``` sudo chmod 777 /usr/bin/fdir.sh ``` or specific user that you want to wrx such as (775 or 755)
