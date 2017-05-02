@@ -3,7 +3,7 @@
 
 | Version | Update Detail                                                                         |
 | :------:|:--------------------------------------------------------------------------------------|
-|   1.1   | - Add User Config                                                                     |
+|   1.1   | Add User Config                                                                       |
 
 **Installation**
 * move ```fdir.sh``` to ```/usr/bin```
