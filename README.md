@@ -13,6 +13,9 @@
 * You can edit something by open fdir.sh file and move to 'USER CONFIG'
   - ``` PREFIX_ ``` = prefix of key. default is 'fe-'
   - ``` FILENAME_ ``` = data file name. default is '.fdirrc'
+  - ``` SAVE_FLAG_ ``` = save flag use to save key. default is '-s'
+  - ``` REMOVE_FLAG_ ``` = remove flag use to remove key. default is '-r'
+  - ``` LIST_FLAG_ ``` = list flag use to list all key. default is '-l'
 
 **Usage**
 If you add ```alias fdir="fdir.sh"``` to your .bashrc you can use ```fdir``` instead of ```fdir.sh```. If not, you must use ```fdir.sh``` instead
