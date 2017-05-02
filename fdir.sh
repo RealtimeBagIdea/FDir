@@ -12,16 +12,28 @@
 #-------+---------------------------------------------------------------------------------------------------#
 #  Ver  |   Detail                                                                                          |
 #-------+---------------------------------------------------------------------------------------------------#
+#  1.1  |   Add Prefix Editor
+#-------+---------------------------------------------------------------------------------------------------#
 
-VERSION="1.0"
+
+
+#------------------------------- USER CONFIG ---------------------------------------------------------------#
+
+PREFIX_="fd-"
+FILENAME_=".fdirrc"
+
+#-------------------------------- END CONFIG ---------------------------------------------------------------#
+
+
+VERSION="1.1"
 
 #Variable
 CURRENTUSER=$(whoami)
 
 if [ "$CURRENTUSER" == "root" ]; then
-    CONFIG_FILE="/$CURRENTUSER/.fdirrc"
+    CONFIG_FILE="/$CURRENTUSER/$FILENAME_"
 else
-    CONFIG_FILE="/home/$CURRENTUSER/.fdirrc"
+    CONFIG_FILE="/home/$CURRENTUSER/$FILENAME_"
 fi
 
 #==================== METHOD =======================#
@@ -34,11 +46,10 @@ ShowError()
 Save()
 {
     if [ "$1" != "" ]; then
-        #Check if exists
-        IS_EXISTS=$(cat $CONFIG_FILE | grep "alias fd_$1=")
+        IS_EXISTS=$(cat $CONFIG_FILE | grep "alias $PREFIX_$1=")
         if [ "$IS_EXISTS" == "" ]; then
             CORRECT_PATH=$(echo $PWD | sed "s/\s/\\\ /g")
-            echo "alias fd_$1=\"cd $CORRECT_PATH\"" >> $CONFIG_FILE
+            echo "alias $PREFIX_$1=\"cd $CORRECT_PATH\"" >> $CONFIG_FILE
             echo "Add '$1' to $PWD"
             echo ""
         else
@@ -53,13 +64,12 @@ Save()
 Remove()
 {
     if [ "$1" != "" ]; then
-        #Check if exists
-        IS_EXISTS=$(cat $CONFIG_FILE | grep "alias fd_$1=")
+        IS_EXISTS=$(cat $CONFIG_FILE | grep "alias $PREFIX_$1=")
         if [ "$IS_EXISTS" == "" ]; then
             echo "Key '$1' not found"
             echo ""
         else
-            sed -i "/alias fd_$1=.*$/d" $CONFIG_FILE
+            sed -i "/alias $PREFIX_$1=.*$/d" $CONFIG_FILE
             echo "Remove '$1' successfully"
             echo ""
         fi
@@ -70,7 +80,7 @@ Remove()
 
 List()
 {
-    FILE=$(cat $CONFIG_FILE | sed -e "s/alias fd_//g")
+    FILE=$(cat $CONFIG_FILE | sed -e "s/alias $PREFIX_//g")
     FILE=$(echo $FILE | sed -e "s/=\"cd /=/g")
     FILE=$(echo $FILE | sed -e "s/\"//g")
     FILE=$(echo $FILE | sed -e "s/\\\ /#SPACE#/g")
@@ -85,7 +95,7 @@ List()
 Help()
 {
     echo -e "Use for Edit: \t fdir.sh [OPTION]"
-    echo -e "Use for Move: \t fd_<key>"
+    echo -e "Use for Move: \t <prefix><key> (Prefix can setting in this script. Default is fe-)"
     echo -e "[OPTION]"
     echo -e "\t-s <key> \tLink <key> to current directory"
     echo -e "\t-r <key> \tRemove <key>"
@@ -96,14 +106,14 @@ Help()
     echo -e "\t\t$ cd /path/to/dir"
     echo -e "\t\t$ fdir.sh -s mydir"
     echo -e "\t#Terminal 2"
-    echo -e "\t\t$ fd_mydir"
+    echo -e "\t\t$ fd-mydir"
 }
 
 
 #==================== MAIN =======================#
-#Check if no config, and generate it
+#Check if no config file, and generate it
 if [ ! -f $CONFIG_FILE ]; then
-    touch $CONFIG_FILE
+    echo "" > $CONFIG_FILE
 fi
 
 if [ "$1" == "-s" ]; then
@@ -120,3 +130,4 @@ elif [ "$1" == "-v" ]; then
 else
     ShowError
 fi
+i
