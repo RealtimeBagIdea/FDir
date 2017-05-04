@@ -2,44 +2,69 @@
 
 #-------------- How to use -----------------#
 # 1 move this file to /usr/bin
-# 2 sudo chmod 777 /usr/bin/fdir.sh
-# 3 create ~/.fdirrc (touch ~/.fdirrc)
-# 4 add source ~/.fdirrc to your bashrc
-# 5 re-open terminal
+# 2 run 'sudo chmod 777 /usr/bin/fdir.sh'
+# 3 run 'fdir.sh init'
+# 4 re-open terminal
 #-------------------------------------------#
 
 #-------------------------------- Update -------------------------------------------------------------------#
 #-------+---------------------------------------------------------------------------------------------------#
 #  Ver  |   Detail                                                                                          |
 #-------+---------------------------------------------------------------------------------------------------#
-#  1.1  |   Add Prefix Editor
+#  1.1  |   Add Prefix Editor                                                                               |
+#-------+---------------------------------------------------------------------------------------------------#
+#  1.2  |   Add Init                                                                                        |
 #-------+---------------------------------------------------------------------------------------------------#
 
 
-
-#------------------------------- USER CONFIG ---------------------------------------------------------------#
+#=============================== USER CONFIG ===============================================================#
 
 PREFIX_="fd-"
-FILENAME_=".fdirrc"
+FILENAME_=".fdirrc" #If you change this value. You must edit your .bashrc
 SAVE_FLAG_="-s"
 REMOVE_FLAG_="-r"
 LIST_FLAG_="-l"
 
-#-------------------------------- END CONFIG ---------------------------------------------------------------#
+#================================ END CONFIG ===============================================================#
 
-
-VERSION="1.1"
 
 #Variable
+VERSION="1.2"
 CURRENTUSER=$(whoami)
 
+#==================== SETUP ========================#
+
 if [ "$CURRENTUSER" == "root" ]; then
+    FD_HOME="/$CURRENTUSER"
     CONFIG_FILE="/$CURRENTUSER/$FILENAME_"
 else
+    FD_HOME="/home/$CURRENTUSER"
     CONFIG_FILE="/home/$CURRENTUSER/$FILENAME_"
 fi
 
 #==================== METHOD =======================#
+Init ()
+{
+    read -p "Enter your shell init file (default: .bashrc) : " SHELLINIT 
+
+    if [[ $SHELLINIT = "" ]]; then
+        SHELLINIT=".bashrc"
+    fi
+
+    SHELLINIT="$FD_HOME/$SHELLINIT"
+
+
+    IS_INITED=$(cat $SHELLINIT | grep "source $CONFIG_FILE")
+
+    if [ "$IS_INITED" == "" ]; then
+        echo "source $CONFIG_FILE" >> "$SHELLINIT"
+        echo "Init successfully (You have to restart Terminal)"
+    else
+        echo "FDir init already"
+    fi
+    echo ""
+}
+
 ShowError() 
 {
     echo "Command is not correct, see fdir.sh -h"
@@ -84,13 +109,15 @@ Remove()
 List()
 {
     FILE=$(cat $CONFIG_FILE | sed -e "s/alias $PREFIX_//g")
-    FILE=$(echo $FILE | sed -e "s/=\"cd /=/g")
+    FILE=$(echo $FILE | sed -e "s/=\"cd /#TAB#=#SPACE#/g")
     FILE=$(echo $FILE | sed -e "s/\"//g")
     FILE=$(echo $FILE | sed -e "s/\\\ /#SPACE#/g")
 
     for i in ${FILE[@]}
     do
-        echo $(echo $i | sed -e "s/#SPACE#/ /g")
+        DECODE=$(echo $i | sed -e "s/#SPACE#/ /g")
+        DECODE=$(echo $DECODE | sed -e "s/#TAB#/\\t/g")
+        echo -e "$DECODE"
     done
     echo ""
 }
@@ -130,7 +157,8 @@ elif [ "$1" == "-h" ]; then
 elif [ "$1" == "-v" ]; then
     echo "Version: $VERSION" 
     echo ""
+elif [ "$1" == "init" ]; then
+    Init
 else
     ShowError
 fi
-
