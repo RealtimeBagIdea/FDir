@@ -20,10 +20,10 @@
 #=============================== USER CONFIG ===============================================================#
 
 PREFIX_="fd-"
-FILENAME_=".fdirrc" #If you change this value. You must edit your .bashrc
 SAVE_FLAG_="-s"
 REMOVE_FLAG_="-r"
 LIST_FLAG_="-l"
+FILENAME_=".fdirrc" #If you change this value. You must edit your .bashrc
 
 #================================ END CONFIG ===============================================================#
 
@@ -36,10 +36,13 @@ CURRENTUSER=$(whoami)
 
 if [ "$CURRENTUSER" == "root" ]; then
     FD_HOME="/$CURRENTUSER"
-    CONFIG_FILE="/$CURRENTUSER/$FILENAME_"
 else
     FD_HOME="/home/$CURRENTUSER"
-    CONFIG_FILE="/home/$CURRENTUSER/$FILENAME_"
+fi
+CONFIG_FILE=$FD_HOME/$FILENAME_
+
+if [ ! -f $CONFIG_FILE ]; then
+    echo "" > $CONFIG_FILE
 fi
 
 #==================== METHOD =======================#
@@ -52,7 +55,6 @@ Init ()
     fi
 
     SHELLINIT="$FD_HOME/$SHELLINIT"
-
 
     IS_INITED=$(cat $SHELLINIT | grep "source $CONFIG_FILE")
 
@@ -74,7 +76,9 @@ ShowError()
 Save()
 {
     if [ "$1" != "" ]; then
+
         IS_EXISTS=$(cat $CONFIG_FILE | grep "alias $PREFIX_$1=")
+
         if [ "$IS_EXISTS" == "" ]; then
             CORRECT_PATH=$(echo $PWD | sed "s/\s/\\\ /g")
             echo "alias $PREFIX_$1=\"cd $CORRECT_PATH\"" >> $CONFIG_FILE
@@ -92,7 +96,9 @@ Save()
 Remove()
 {
     if [ "$1" != "" ]; then
+
         IS_EXISTS=$(cat $CONFIG_FILE | grep "alias $PREFIX_$1=")
+
         if [ "$IS_EXISTS" == "" ]; then
             echo "Key '$1' not found"
             echo ""
@@ -125,12 +131,17 @@ List()
 Help()
 {
     echo -e "Use for Edit: \t fdir.sh [OPTION]"
-    echo -e "Use for Move: \t <prefix><key> (Prefix can setting in this script. Default is fe-)"
+    echo -e "Use for Move: \t <prefix><key> (Prefix can setting in this script. Default is fd-)"
+    echo ""
+    echo -e "[INIT]"
+    echo -e "\tinit \tCreate '.fdirrc' file and add 'source ~/.fdirrc' to shell init file"
+    echo ""
     echo -e "[OPTION]"
     echo -e "\t-s <key> \tLink <key> to current directory"
     echo -e "\t-r <key> \tRemove <key>"
     echo -e "\t-l \t\tList all <key>"
     echo -e "\t-v \t\tShow version"
+    echo ""
     echo -e "[EXAMPLE]"
     echo -e "\t#Terminal 1"
     echo -e "\t\t$ cd /path/to/dir"
@@ -141,10 +152,6 @@ Help()
 
 
 #==================== MAIN =======================#
-#Check if no config file, and generate it
-if [ ! -f $CONFIG_FILE ]; then
-    echo "" > $CONFIG_FILE
-fi
 
 if [ "$1" == "$SAVE_FLAG_" ]; then
     Save $2
