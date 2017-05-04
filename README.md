@@ -3,8 +3,9 @@
 
 | Version | Update Detail                                                                         |
 | :------:|:--------------------------------------------------------------------------------------|
+|   1.2   | Add Init Flag                                                                         |
 |   1.1   | Add User Config                                                                       |
-|   1.2   | Add Init                                                                              |
+
 
 **Installation**
 * move ```fdir.sh``` to ```/usr/bin```
