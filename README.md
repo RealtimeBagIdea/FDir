@@ -4,12 +4,12 @@
 | Version | Update Detail                                                                         |
 | :------:|:--------------------------------------------------------------------------------------|
 |   1.1   | Add User Config                                                                       |
+|   1.2   | Add Init                                                                              |
 
 **Installation**
 * move ```fdir.sh``` to ```/usr/bin```
 * run command ``` sudo chmod 777 /usr/bin/fdir.sh ``` or specific user that you want to wrx such as (775 or 755)
-* run command ``` touch ~/.fdirrc ```
-* add ``` source ~/.fdirrc ``` to your bashrc or something of your shell
+* run command ``` fdir.sh init ```
 * [Optional] add ``` alias fdir="fdir.sh" ``` to your bashrc or something of your shell. For use fdir instead of fdir.sh
 * re-open terminal
 
@@ -23,6 +23,10 @@
 
 **Usage**
 If you add ```alias fdir="fdir.sh"``` to your .bashrc you can use ```fdir``` instead of ```fdir.sh```. If not, you must use ```fdir.sh``` instead
+
+* Init
+  - ``` fdir init ``` to automatic create ``` ~/.fdirrc ``` file and add ```source ~/.fdirrc``` to your shell init (you must input your shell init file. Default is ``` .bashrc ```)
+  - ex. ``` fdir -s mydir ``` 
 
 * Add Favorite Directory
   - ``` cd /path/to/dir ```
