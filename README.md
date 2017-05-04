@@ -1,6 +1,10 @@
 **Favorite Directory**
 <i>Use for create Shortcut to change Terminal's working directory to your favorite directory</i>
 
+| Version | Update Detail                                                                         |
+| :------:|:--------------------------------------------------------------------------------------|
+|   1.1   | Add User Config                                                                       |
+
 **Installation**
 * move ```fdir.sh``` to ```/usr/bin```
 * run command ``` sudo chmod 777 /usr/bin/fdir.sh ``` or specific user that you want to wrx such as (775 or 755)
@@ -11,8 +15,11 @@
 
 **User Config**
 * You can edit something by open fdir.sh file and move to 'USER CONFIG'
-  - ``` PREFIX_ ``` = prefix of key. default is 'fe-'
+  - ``` PREFIX_ ``` = prefix of key. default is 'fd-'
   - ``` FILENAME_ ``` = data file name. default is '.fdirrc'
+  - ``` SAVE_FLAG_ ``` = save flag use to save key. default is '-s'
+  - ``` REMOVE_FLAG_ ``` = remove flag use to remove key. default is '-r'
+  - ``` LIST_FLAG_ ``` = list flag use to list all key. default is '-l'
 
 **Usage**
 If you add ```alias fdir="fdir.sh"``` to your .bashrc you can use ```fdir``` instead of ```fdir.sh```. If not, you must use ```fdir.sh``` instead
@@ -36,5 +43,5 @@ If you add ```alias fdir="fdir.sh"``` to your .bashrc you can use ```fdir``` ins
   - ``` fdir -h ```
   
 * To Change Directory to your Favorite Directory
-  - ``` fd_<key> ```
-  - ex. ``` fd_mydir ```
+  - ``` <prefix><key> ```
+  - ex. ``` fd-mydir ```
