@@ -1,0 +1,151 @@
+.TH FDir 1 local
+.SH NAME
+fdir.sh \- favorite directory.
+.SH SYNOPSIS
+.B fdir.sh
+.RB [ " init " ]
+.br
+.B fdir.sh
+.RB [ " \-l " ]
+.br
+.B fdir.sh
+.RB [ " \-v " ]
+.br
+.B fdir.sh
+.RB [ " \-h " ]
+.br
+.ll +8
+.B fdir.sh
+.RB [ " \-s " ]
+[
+.I "key"
+]
+.br
+.ll +8
+.B fdir.sh
+.RB [ " \-r " ]
+[
+.I "key"
+]
+.SH DESCRIPTION
+.I FDir
+is a cli directory shortcut manager.
+.br
+It requires you to
+.B cd
+to target directory first in order to create a shortcut.
+.PP
+.I FDir
+let you use
+.B key
+to refer to a directory.
+.br
+It works by save all your predefine
+.B key 
+to 
+.I ~/.fdirrc 
+and make 
+.B alias
+.br
+You can access all directory shortcuts by simply 
+.B source 
+.I ~/.fdirrc
+.SH TIPS
+It recommends to alias 
+.I fdir.sh 
+to 'fdir'or 'fd'
+.br
+Although, this is depends on your 
+.B PREFIX_
+in
+.I fdir.sh
+config section.
+.SH USAGE
+Assume you have already 
+.B alias
+.I fdir.sh
+to 'fdir'
+.PP
+.B Add Favorite Directory
+.PP
+cd /path/to/dir
+.br
+fdir -s key
+.PP
+.B Remove Favorite Directory
+.PP
+fdir -r key
+.PP
+.B Change Directory to your Favorite Directory
+.br
+<prefix><key>
+.br
+Assume your 
+.B PREFIX_ 
+is 'fd-' and
+.B key
+is 'mykey'
+.PP
+fd-mykey
+.SH OPTIONS
+.TP
+.B init
+Automatic create ~/.fdirrc and add 'source ~/.fdirrc' to your shell init rc.
+Default is '.bashrc'.
+.TP
+.B \-l
+List favorite directory and key.
+.TP
+.B \-v
+Show version.
+.TP
+.B \-h
+Show help.
+.TP
+.B \-s
+Add key.
+.TP
+.B \-r
+Remove key.
+.SH CONFIG
+You can edit config by open 
+.I fdir.sh
+file in 
+.B USER CONFIG 
+section.
+.PP
+.B PREFIX_ 
+= prefix of key. default is 'fd-'
+.br
+.B FILENAME_ 
+= data file name. default is '.fdirrc'
+.br
+.B SAVE_FLAG_ 
+= save flag use to save key. default is '-s'
+.br
+.B REMOVE_FLAG_ 
+= remove flag use to remove key. default is '-r'
+.br
+.B LIST_FLAG_ 
+= list flag use to list all key. default is '-l'
+.SH  ISSUES
+.I FDir
+requires to restart terminal after
+.I <Add/Remove>
+.B key
+.br
+If you change config
+.B FILENAME_
+,You must edit your init shell rc. (default is '.bashrc')
+.SH  AUTHOR
+.br
+Program : RealtimeBagIdea
+.br
+Manpage : CSaratakij
+.SH REPORTING BUGS
+Report bugs to <https://github.com/RealtimeBagIdea/FDir/issues>.
+.SH LICENSE
+.I GNU General Public License v3.0
+.SH LINKS
+.I Git :
+git clone https://github.com/RealtimeBagIdea/FDir.git
