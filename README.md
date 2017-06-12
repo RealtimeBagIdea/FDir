@@ -22,6 +22,10 @@
   - ``` REMOVE_FLAG_ ``` = remove flag use to remove key. default is '-r'
   - ``` LIST_FLAG_ ``` = list flag use to list all key. default is '-l'
 
+**For Manpage**
+* move ```fdir.1``` to ```/usr/share/man/man1```
+* type ```man fdir``` to see man page.
+
 **Usage**
 If you add ```alias fdir="fdir.sh"``` to your .bashrc you can use ```fdir``` instead of ```fdir.sh```. If not, you must use ```fdir.sh``` instead
 
