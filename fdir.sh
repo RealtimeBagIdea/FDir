@@ -150,6 +150,36 @@ Help()
     echo -e "\t\t$ fd-mydir"
 }
 
+RemoveGarbageKeyPrompt()
+{
+    echo -n "Delete the keys that point to an un-exist directory? (y/n) : "
+    read RESULT
+    case $RESULT in
+        [yY]* ) RemoveGarbageKey;;
+        [nN]* ) exit;;
+    esac
+}
+
+RemoveGarbageKey()
+{
+    echo "Check if key points to exist directory..."
+    cp /dev/null .fdir_temp
+
+    cat $CONFIG_FILE | while read -r line ; do
+        DIR=$(echo $line | grep -o "/.*[^\"]")
+        KEY=$(echo $line | grep -o "fd-[[:alnum:]]*")
+
+        if [ -d $DIR ]; then
+            echo $line >> .fdir_temp
+        else
+            echo "Remove key : $KEY"
+        fi
+    done
+
+    echo "Backup an old file..."
+    cp $CONFIG_FILE "${CONFIG_FILE}_old"
+    mv .fdir_temp $CONFIG_FILE
+}
 
 #==================== MAIN =======================#
 
@@ -166,6 +196,8 @@ elif [ "$1" == "-v" ]; then
     echo ""
 elif [ "$1" == "init" ]; then
     Init
+elif [ "$1" == "--clean" ]; then
+    RemoveGarbageKeyPrompt
 else
     ShowError
 fi
