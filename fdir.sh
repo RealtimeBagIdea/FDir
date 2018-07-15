@@ -163,22 +163,22 @@ RemoveGarbageKeyPrompt()
 RemoveGarbageKey()
 {
     echo "Check if key points to exist directory..."
-    cp /dev/null .fdir_temp
+    cp /dev/null ${CONFIG_FILE}_temp
 
     cat $CONFIG_FILE | while read -r line ; do
         DIR=$(echo $line | grep -o "/.*[^\"]")
-        KEY=$(echo $line | grep -o "fd-[[:alnum:]]*")
+        KEY=$(echo $line | grep -o "$PREFIX_[[:alnum:]]*")
 
         if [ -d $DIR ]; then
-            echo $line >> .fdir_temp
+            echo $line >> ${CONFIG_FILE}_temp
         else
             echo "Remove key : $KEY"
         fi
     done
 
     echo "Backup an old file..."
-    cp $CONFIG_FILE "${CONFIG_FILE}_old"
-    mv .fdir_temp $CONFIG_FILE
+    cp $CONFIG_FILE "${CONFIG_FILE}_backup"
+    mv ${CONFIG_FILE}_temp $CONFIG_FILE
 }
 
 #==================== MAIN =======================#
