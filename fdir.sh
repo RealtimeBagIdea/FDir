@@ -140,6 +140,7 @@ Help()
     echo -e "\t-s <key> \tLink <key> to current directory"
     echo -e "\t-r <key> \tRemove <key>"
     echo -e "\t-l \t\tList all <key>"
+    echo -e "\t--clean \tDelete all key that points to un-exist directory <key>"
     echo -e "\t-v \t\tShow version"
     echo ""
     echo -e "[EXAMPLE]"
@@ -150,6 +151,37 @@ Help()
     echo -e "\t\t$ fd-mydir"
 }
 
+RemoveGarbageKeyPrompt()
+{
+    echo -n "Delete the keys that point to an un-exist directory? (y/n) : "
+    read RESULT
+    case $RESULT in
+        [yY]* ) RemoveGarbageKey;;
+        [nN]* ) exit;;
+    esac
+}
+
+RemoveGarbageKey()
+{
+    echo "Check if key points to exist directory..."
+    cp /dev/null ${CONFIG_FILE}_temp
+
+    cat $CONFIG_FILE | while read -r line ; do
+        DIR=$(echo $line | grep -o "/.*[^\"]")
+        KEY=$(echo $line | grep -o "$PREFIX_[[:alnum:]]*")
+
+        if [ -d $DIR ]; then
+            echo $line >> ${CONFIG_FILE}_temp
+        else
+            echo "Remove key : $KEY"
+        fi
+    done
+
+    cp $CONFIG_FILE "${CONFIG_FILE}_backup"
+    mv ${CONFIG_FILE}_temp $CONFIG_FILE
+
+    echo "Backup of an old file has been saved to : ${CONFIG_FILE}_backup"
+}
 
 #==================== MAIN =======================#
 
@@ -166,6 +198,8 @@ elif [ "$1" == "-v" ]; then
     echo ""
 elif [ "$1" == "init" ]; then
     Init
+elif [ "$1" == "--clean" ]; then
+    RemoveGarbageKeyPrompt
 else
     ShowError
 fi
