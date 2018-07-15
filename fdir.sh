@@ -140,6 +140,7 @@ Help()
     echo -e "\t-s <key> \tLink <key> to current directory"
     echo -e "\t-r <key> \tRemove <key>"
     echo -e "\t-l \t\tList all <key>"
+    echo -e "\t--clean \tDelete all key that points to un-exist directory <key>"
     echo -e "\t-v \t\tShow version"
     echo ""
     echo -e "[EXAMPLE]"
