@@ -176,9 +176,10 @@ RemoveGarbageKey()
         fi
     done
 
-    echo "Backup an old file..."
     cp $CONFIG_FILE "${CONFIG_FILE}_backup"
     mv ${CONFIG_FILE}_temp $CONFIG_FILE
+
+    echo "Backup of an old file has been saved to : ${CONFIG_FILE}_backup"
 }
 
 #==================== MAIN =======================#
