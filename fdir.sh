@@ -190,7 +190,7 @@ if [ "$1" == "$SAVE_FLAG_" ]; then
 elif [ "$1" == "$REMOVE_FLAG_" ]; then
     Remove $2
 elif [ "$1" == "$LIST_FLAG_" ]; then
-    List   
+    List | sort
 elif [ "$1" == "-h" ]; then
     Help
 elif [ "$1" == "-v" ]; then
